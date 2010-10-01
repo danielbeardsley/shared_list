@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ListTest < ActiveSupport::TestCase
+	should have_many :items
 	should have_readonly_attribute :created_at
 	
 	context "a List" do
