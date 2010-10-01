@@ -4,3 +4,5 @@ log/*.log
 tmp/**/*
 Thumbs.db
 nbproject
+*.komodoproject
+Gemfile.lock
