@@ -10,6 +10,12 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 group :test, :development do
 	gem "shoulda"
 	gem "factory_girl_rails"
+	gem "capybara"
+	gem "cucumber-rails"
+	
+	if RUBY_PLATFORM =~ /(win|w)32$/
+		gem "win32console"
+	end	
 end
 
 # Use unicorn as the web server
