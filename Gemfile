@@ -14,6 +14,7 @@ group :test, :development do
 	gem "factory_girl_rails"
 	gem "capybara"
 	gem "cucumber-rails"
+	gem "pickle"
 	
 	if RUBY_PLATFORM =~ /(win|w)32$/
 		gem "win32console"
