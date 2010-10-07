@@ -1,1 +1,5 @@
-= (@list && @list.title) || "(untitled)"
+.title= (@list && @list.title) || "(untitled)"
+.items
+	- @list.items.each_with_index do |item, index|
+		= text_field_tag "item_#{index}", item.title
+	= text_field_tag "new_item"
