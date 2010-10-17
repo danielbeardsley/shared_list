@@ -48,14 +48,13 @@ $.extend(CustomEvent.prototype, {
 
 var DefineEvents = function(){
 	var args = [];
-	for (var i = arguments.length - 1; i >= 0; --i) {
+	for (var i=0, len=arguments.length; i < len; i++) {
 		args.push(arguments[i]);
 	}
 	
 	var event_host = args.shift();
 	
-	if(!event_host._event_list)
-		event_host._event_list = [];
+	event_host._event_list = event_host._event_list || [];
 		
 	var events = args[0].constructor == Array ? args[0] : args;
 	for (var i = events.length - 1; i >= 0; --i) {
