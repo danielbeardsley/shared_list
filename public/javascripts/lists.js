@@ -24,7 +24,7 @@ $.extend(List.prototype, {
 (function(){
 	var Record = {
 		set: function(key, value){
-			if(!is_field(key))
+			if(!this.is_field(key))
 				throw(key + " is not a field");
 				
 			if(this[key] != value){
@@ -48,7 +48,7 @@ $.extend(List.prototype, {
 	};
 	
 	$.extend(List.prototype, Record);
-	Item.prototype.fields = {
+	List.prototype.fields = {
 		title:true
 	};	
 })();
