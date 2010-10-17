@@ -1,5 +1,12 @@
-.title= (@list && @list.title) || "(untitled)"
-.items
-	- @list.items.each_with_index do |item, index|
-		= text_field_tag "item_#{index}", item.title
-	= text_field_tag "new_item"
+.list_container
+	%button.new_item New Item
+%pre= flash[:notice] 
+:javascript
+	var current_list = new List(),
+	    current_list_ui = new ListUI({
+				list: current_list,
+				container:$('.list_container')
+			});
+	$('button.new_item').click(function(){
+		current_list.create_item();
+	});
