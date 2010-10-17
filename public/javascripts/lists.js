@@ -4,13 +4,22 @@ $("#content").keypress(function(e) {
 		}
 });
 
-function List(){
-	
+function List(element){
+	this.element = element
+	DefineEvents(this, 'item_created','list_created','item_deleted');
 }
 
-function Item(){
+$.extend(List.prototype, {
+	load: function(json){
+		
+	},
 	
-}
+	create_item: function(){
+		
+	}
+});
+
+
 
 (function(){
 	var Record = {
@@ -33,13 +42,13 @@ function Item(){
 		}
 	};
 	
-	JQuery.extend(Item.prototype, Record);
+	$.extend(Item.prototype, Record);
 	Item.prototype.fields = {
-		'title':true
+		title:true
 	};
 	
-	JQuery.extend(List.prototype, Record);
+	$.extend(List.prototype, Record);
 	Item.prototype.fields = {
-		'title':true
+		title:true
 	};	
 })();
