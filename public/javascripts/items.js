@@ -5,9 +5,9 @@ function Item(list){
 	this.set('title', 'New Item ' + Math.random());
 }
 
-
-$.extend(Item.prototype, {
-});
+Item.prototype = new Record({fields:{
+	'title': true
+}});
 
 
 function ItemUI(opts){

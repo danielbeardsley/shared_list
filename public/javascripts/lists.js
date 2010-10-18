@@ -9,6 +9,10 @@ function List(){
 	this.items = [];
 }
 
+List.prototype = new Record({fields:{
+	'title': true
+}});
+
 $.extend(List.prototype, {
 	load: function(json){
 		
@@ -39,36 +43,3 @@ function ListUI(opts){
 	});
 }
 
-
-
-(function(){
-	var Record = {
-		set: function(key, value){
-			if(!this.is_field(key))
-				throw(key + " is not a field");
-				
-			if(this[key] != value){
-				this[key] = value;
-				this.dirty = true;
-			}
-		},
-		
-		clean: function(){
-			this.dirty = false;
-		},
-		
-		is_field: function(key){
-			return this.fields[key];
-		}
-	};
-	
-	$.extend(Item.prototype, Record);
-	Item.prototype.fields = {
-		title:true
-	};
-	
-	$.extend(List.prototype, Record);
-	List.prototype.fields = {
-		title:true
-	};	
-})();
