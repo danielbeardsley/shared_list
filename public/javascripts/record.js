@@ -8,6 +8,8 @@ function Record(opt){
 			
 		if(this[key] != value){
 			this[key] = value;
+			if(this.changed)
+				this.changed.fire();
 			this.dirty = true;
 		}
 	}

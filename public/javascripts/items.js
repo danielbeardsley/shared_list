@@ -8,6 +8,15 @@ Item.prototype = new Record({fields:{
 }});
 
 
+$.extend(Item.prototype, {
+	to_json: function(){
+		var json = {};
+		for(field in this.fields)
+			json[field] = this[field];
+		return json;
+	}
+})
+
 function ItemUI(opts){
 	this.item = opts.item;
 	this.element = this.create_ui();
