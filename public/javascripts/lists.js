@@ -1,9 +1,3 @@
-$("#content").keypress(function(e) {
-		if (e.which == 13) {
-				e.preventDefault(); // I think this is the keyword you look for?
-		}
-});
-
 function List(){
 	DefineEvents(this, 'item_created','list_created','item_deleted');
 	this.items = [];

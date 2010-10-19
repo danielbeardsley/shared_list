@@ -1,8 +1,6 @@
 function Item(list){
 	this.list = list;
-	DefineEvents(this, 'item_changed','item_deleted');
-	
-	this.set('title', 'New Item ' + Math.random());
+	DefineEvents(this, 'changed', 'deleted');
 }
 
 Item.prototype = new Record({fields:{
@@ -12,7 +10,38 @@ Item.prototype = new Record({fields:{
 
 function ItemUI(opts){
 	this.item = opts.item;
-	this.element = $('<input type="text"/>');
-	this.element.val(this.item.title);
-	opts.container.append(this.element);
+	this.element = this.create_ui();
+	if(opts.container)
+		opts.container.append(this.element);
+	else if(opts.after)
+		opts.after.after(this.element);
+	this.element.focus();
 }
+
+$.extend(ItemUI.prototype, {
+	create_ui: function(){
+		var el = $('<input type="text" class="item"/>');
+		
+		this.observe_element(el);
+		
+		el.val(this.item.title);
+		return el;
+	},
+	
+	observe_element: function(el){
+		var me = this;
+		el.keydown(function(e){
+			switch(e.which){
+				case 13:
+					me.item.list.create_item();
+				default:
+					return;
+			}
+			e.preventDefault();
+		});
+		
+		el.focusout(function(e){
+			me.item.set('title', el.val());
+		});
+	}
+});
