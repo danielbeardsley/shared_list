@@ -17,4 +17,6 @@ function Record(opt){
 	this.is_field = function(key){
 		return this.fields[key];
 	}
+	
+	this.is_new_record = function(){ return this.id && this.id > 0;}
 }

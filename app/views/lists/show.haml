@@ -9,6 +9,9 @@
 				list: current_list,
 				container:$('.list_container')
 			});
+
+	ListIO.watch_list(current_list);
+	
 	$('button.new_item').click(function(){
 		current_list.create_item();
 	});
