@@ -4,9 +4,14 @@ class ItemsController < ApplicationController
 	def create
 		@item = @list.items.create(params['item'])
 		
-		render :json => {:success => !@item.nil?, :message => "Item Created"}
+		render :json => {:success => !@item.nil?, :message => "Item Created", :data => @item.attributes}
 	end
-
+	
+	def update
+		@item.update_attributes(params[:item])
+		render :json => {:success => true, :message => "Item updated", :data => @item.attributes}, :status => 200
+	end
+	
 	private
 	
 	def load_records
