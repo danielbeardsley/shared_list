@@ -4,13 +4,7 @@
 	%button.save Save
 %pre= flash[:notice] 
 :javascript
-	var current_list = new List(),
-	    current_list_ui = new ListUI({
-				list: current_list,
-				container:$('.list_container')
-			});
-
-	ListIO.watch_list(current_list);
+	App.create_list(#{@list && @list.to_hash(true).to_json});
 	
 	$('button.new_item').click(function(){
 		current_list.create_item();
