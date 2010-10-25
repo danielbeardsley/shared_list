@@ -13,6 +13,10 @@ $.extend(Item.prototype, {
 		var json = {};
 		for(field in this.fields)
 			json[field] = this[field];
+		
+		if(!this.is_new_record())
+			json.id = this.id;
+			
 		return json;
 	}
 })
