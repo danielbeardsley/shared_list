@@ -9,6 +9,9 @@ var IO = {
 var ListIO = {
 	watch_list: function(list){
 		list.item_created.observe(this.watch_item);
+		for(var i=list.items.length-1; i>=0; --i){
+			this.watch_item(list.items[i]);
+		}
 	},
 	
 	watch_item: function(item){
