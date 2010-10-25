@@ -3,6 +3,12 @@ var IO = {
 		add_http_put_header:function(xhr){
 			xhr.setRequestHeader("X-Http-Method-Override", 'put');
 		}
+	},
+	
+	helpers:{
+		item_path: function(item){
+			return '/lists/' + item.list.id + '/items' + (item.is_new_record() ? '' : '/' + item.id);
+		}
 	}
 }
 
@@ -22,15 +28,16 @@ var ListIO = {
 $.extend(Item.prototype,{
 	save: function(){
 		var request_opts = {
-			url: window.location.pathname + '/items',
+			url: IO.helpers.item_path(this),
 			contentType: 'application/json',
 			type: 'POST',
 			data: JSON.stringify({item:this.to_json()}),
 			dataType: 'json'
 		};
-		
-		if(this.is_new_record())
+
+		if(!this.is_new_record()){
 			request_opts.beforeSend = IO.processing.add_http_put_header;
+		}
 		
 		$.ajax(request_opts);		
 	}
