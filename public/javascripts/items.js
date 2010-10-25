@@ -1,5 +1,6 @@
-function Item(list){
+function Item(list, attr){
 	this.list = list;
+	if(attr) this.load_attributes(attr);
 	DefineEvents(this, 'changed', 'deleted');
 }
 

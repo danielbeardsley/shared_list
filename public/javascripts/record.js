@@ -18,5 +18,12 @@ function Record(opt){
 		return this.fields[key];
 	}
 	
+	this.load_attributes = function(attr){
+		for(var k in this.fields){
+			this[k] = attr[k];
+		}
+		if(attr.id) this.id = attr.id;
+	}
+	
 	this.is_new_record = function(){ return this.id && this.id > 0;}
 }
