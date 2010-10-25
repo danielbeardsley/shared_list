@@ -25,5 +25,5 @@ function Record(opt){
 		if(attr.id) this.id = attr.id;
 	}
 	
-	this.is_new_record = function(){ return this.id && this.id > 0;}
+	this.is_new_record = function(){ return !(this.id && this.id > 0);}
 }
