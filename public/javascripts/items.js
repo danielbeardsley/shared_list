@@ -68,7 +68,7 @@ $.extend(ItemUI.prototype, {
 						me.item.destroy();
 						e.preventDefault();
 					}
-					return;
+					break;
 			}
 		});
 		

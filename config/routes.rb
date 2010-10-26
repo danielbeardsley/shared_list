@@ -1,7 +1,7 @@
 TaskList::Application.routes.draw do
 	
 	resources :lists do
-		resources :items, :only => [:create, :update, :delete]
+		resources :items, :only => [:create, :update, :destroy]
 	end
 	
   # The priority is based upon order of creation:

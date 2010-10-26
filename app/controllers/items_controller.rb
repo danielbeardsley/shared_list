@@ -12,6 +12,11 @@ class ItemsController < ApplicationController
 		render :json => {:success => true, :message => "Item updated", :data => @item.attributes}, :status => 200
 	end
 	
+	def destroy
+		@item.destroy
+		render :json => {:success => true, :message => "Item deleted"}, :status => 200		
+	end
+	
 	private
 	
 	def load_records
