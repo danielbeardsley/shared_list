@@ -1,5 +1,5 @@
 function List(){
-	DefineEvents(this, 'item_created','item_instantiated','list_created','item_deleted');
+	DefineEvents(this, 'item_created','item_instantiated','item_deleted','item_removed');
 	this.items = [];
 }
 
@@ -26,8 +26,16 @@ $.extend(List.prototype, {
 		this.item_created.fire(new_item);
 	},
 	
+	remove_item: function(item){
+		var index = $.inArray(item, this.items);
+		if(index >= 0)
+			this.items.splice(index, 1);
+		this.item_removed.fire(item);
+	},
+	
 	instantiate_item: function(attr){
 		var item = new Item(this, attr);
+		item.deleted.observe(this.remove_item, this);
 		this.items.push(item);
 		this.item_instantiated.fire(item);
 		return item;
@@ -45,12 +53,16 @@ function ListUI(opts){
 	this.container.append(this.element);
 	
 	this.create_item_ui = function(item){
-		item.changed.observe(function(){
-				console.log('item changed to:' + this.title);
-		});
-
 		item_uis.push(new ItemUI({item:item, container:this.element}));
 	};
+	
+	this.remove_item_ui = function(item){
+		$.each(item_uis, function(index, item_ui){
+			if(item_ui.item == item){
+				item_uis.splice(index, 1);
+			}
+		});
+	}
 	
 	this.create_all_items_uis = function(){
 		$.each(this.list.items, function(index, item){
@@ -59,6 +71,7 @@ function ListUI(opts){
 	}
 
 	this.list.item_instantiated.observe(this.create_item_ui, this);
+	this.list.item_removed.observe(this.remove_item_ui, this);	
 	
 	if(this.list.items && this.list.items.length > 0) this.create_all_items_uis();
 }

@@ -19,12 +19,21 @@ $.extend(Item.prototype, {
 			json.id = this.id;
 			
 		return json;
+	},
+	
+	destroy: function(){
+		this.deleted.fire();
+		this._clear_all_event_handlers();
+		delete(this.fields);
 	}
 })
 
 function ItemUI(opts){
 	this.item = opts.item;
+	this.item.deleted.observe(this.destroy, this);
+	
 	this.element = this.create_ui();
+	
 	if(opts.container)
 		opts.container.append(this.element);
 	else if(opts.after)
@@ -42,16 +51,25 @@ $.extend(ItemUI.prototype, {
 		return el;
 	},
 	
+	destroy: function(){
+		this.element.remove();
+	},
+	
 	observe_element: function(el){
 		var me = this;
 		el.keydown(function(e){
 			switch(e.which){
 				case 13:
 					me.item.list.create_item();
-				default:
+					e.preventDefault();
+					break;
+				case 8: case 46: //backspace and delete
+					if(el.val() == ""){
+						me.item.destroy();
+						e.preventDefault();
+					}
 					return;
 			}
-			e.preventDefault();
 		});
 		
 		el.focusout(function(e){
