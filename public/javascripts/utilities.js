@@ -55,7 +55,14 @@ var DefineEvents = function(){
 	var event_host = args.shift();
 	
 	event_host._event_list = event_host._event_list || [];
-		
+	
+	event_host._clear_all_event_handlers = function(){
+		var events = this._event_list;
+		for (var i = events.length - 1; i >= 0; --i)
+			events[i].clear_observers();
+		delete(this._event_list);
+	}
+	
 	var events = args[0].constructor == Array ? args[0] : args;
 	for (var i = events.length - 1; i >= 0; --i) {
 		var event = new CustomEvent(event_host);
