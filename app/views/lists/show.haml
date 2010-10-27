@@ -1,14 +1,9 @@
 .list_container
-	.title= @list.title
 	%button.new_item New Item
-	%button.save Save
 %pre= flash[:notice] 
 :javascript
 	App.create_list(#{@list && @list.to_hash(true).to_json});
 	
 	$('button.new_item').click(function(){
-		current_list.create_item();
-	});
-	$('button.save').click(function(){
-		IO.save(current_list);
+		App.current_list.create_item();
 	});
