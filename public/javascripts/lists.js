@@ -21,8 +21,8 @@ $.extend(List.prototype, {
 		return json;
 	},
 	
-	create_item: function(){
-		var new_item = this.instantiate_item();
+	create_item: function(opt){
+		var new_item = this.instantiate_item({}, opt);
 		this.item_created.fire(new_item);
 	},
 	
@@ -33,11 +33,22 @@ $.extend(List.prototype, {
 		this.item_removed.fire(item);
 	},
 	
-	instantiate_item: function(attr){
-		var item = new Item(this, attr);
+	instantiate_item: function(attr, opt){
+		var item = new Item(this, attr),
+		    index;
+
 		item.deleted.observe(this.remove_item, this);
-		this.items.push(item);
-		this.item_instantiated.fire(item);
+
+		if(opt && opt.after)
+			index = $.inArray(opt.after, this.items)+1;
+		else if(opt && opt.before)
+			index = $.inArray(opt.before, this.items);
+		else
+			index = this.items.length;
+		
+		this.items.splice(index, 1, item);
+			
+		this.item_instantiated.fire({item:item, before_item:this.items[index+1]});
 		return item;
 	}	
 });
@@ -55,22 +66,31 @@ function ListUI(opts){
 	this.element.append(this.title_el, this.items_el);
 	this.container.append(this.element);
 	
-	this.create_item_ui = function(item){
-		item_uis.push(new ItemUI({item:item, container:this.element}));
+	this.create_item_ui = function(info){
+		var attr = {
+			item:info.item,
+			container:this.items_el
+		};
+		var index = info.before_item ? this.index_of_ui_for_item(info.before_item) : item_uis.length;
+		item_uis.splice(index, 1, new ItemUI(attr));
 	};
 	
 	this.remove_item_ui = function(item){
-		$.each(item_uis, function(index, item_ui){
-			if(item_ui.item == item){
-				item_uis.splice(index, 1);
-			}
-		});
+		var index = this.index_of_ui_for_item(item);
+		if(index !== false) item_uis.splice(index, 1);
 	}
 	
 	this.create_all_items_uis = function(){
 		$.each(this.list.items, function(index, item){
-			me.create_item_ui(item);
+			me.create_item_ui({item:item});
 		});
+	}
+	
+	this.index_of_ui_for_item = function(item){
+		for(var i=item_uis.length-1; i>=0; i--){
+			if(item_uis[i].item == item) return i
+		}
+		return null;
 	}
 
 	this.list.item_instantiated.observe(this.create_item_ui, this);

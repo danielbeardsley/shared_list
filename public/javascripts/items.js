@@ -34,10 +34,11 @@ function ItemUI(opts){
 	
 	this.element = this.create_ui();
 	
-	if(opts.container)
-		opts.container.append(this.element);
-	else if(opts.after)
+	if(opts.after)
 		opts.after.after(this.element);
+	else if(opts.container)
+		opts.container.append(this.element);
+
 	this.element.focus();
 }
 
@@ -60,7 +61,7 @@ $.extend(ItemUI.prototype, {
 		el.keydown(function(e){
 			switch(e.which){
 				case 13:
-					me.item.list.create_item();
+					me.item.list.create_item({after:me.item});
 					e.preventDefault();
 					break;
 				case 8: case 46: //backspace and delete
