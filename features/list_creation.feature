@@ -5,3 +5,4 @@ Feature: Creating a task list
 		And I press "New List"
 			Then a list should exist
 			And I should be on the list's page
+			And the list should have 0 items
