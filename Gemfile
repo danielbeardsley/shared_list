@@ -16,6 +16,7 @@ group :test, :development do
 	gem "cucumber-rails"
 	gem "pickle"
 	gem "launchy"
+	gem "ruby-debug"
 	gem "database_cleaner"
 	
 	if RUBY_PLATFORM =~ /(win|w)32$/

@@ -2,6 +2,10 @@ Then(/^the "([^"]*)" field(?: within "([^"]*)")? should be (?:empty|blank)$/) do
 	Then %Q{the "#{field}" field #{selector ? "within \"#{selector}\" " : ""}should not contain ".+"}
 end
 
+Then(/^pause .*/) do
+	debugger
+end
+
 Then(/^(only |)?the following items? should be shown:?$/) do |only, table|
 	with_scope('.items_container') do
 		field_values = all('input').map(&:value)
