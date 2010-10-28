@@ -1,12 +1,4 @@
 var IO = {
-	processing:{
-		add_http_method_header:function(method){
-			return function(xhr){
-				xhr.setRequestHeader("X-Http-Method-Override", method);
-			}
-		}		
-	},
-	
 	helpers:{
 		item_path: function(item){
 			return '/lists/' + item.list.id + '/items' + (item.is_new_record() ? '' : '/' + item.id);
@@ -35,28 +27,21 @@ var ListIO = {
 	
 	delete_item: function(item){
 		var request_opts = this.ajax_request_options(item, 'delete');
-
-		if(!item.is_new_record())
-			request_opts.beforeSend = IO.processing.add_http_method_header('DELETE');
 		
 		$.ajax(request_opts);		
 	},
 	
 	save_item: function(item){
-		var request_opts = this.ajax_request_options(item, 'put');
+		var request_opts = this.ajax_request_options(item);
 
-		if(!item.is_new_record()){
-			request_opts.beforeSend = IO.processing.add_http_method_header('put');
-		}
-		
 		$.ajax(request_opts);		
 	},
 	
-	ajax_request_options: function(item){
+	ajax_request_options: function(item, method){
 		return {
 			url: IO.helpers.item_path(item),
 			contentType: 'application/json',
-			type: 'POST',
+			type: method || (item.is_new_record() ? 'POST' : 'PUT'),
 			data: JSON.stringify({item:item.to_json()}),
 			dataType: 'json'
 		};
