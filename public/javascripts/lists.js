@@ -49,7 +49,10 @@ function ListUI(opts){
 
 	this.list = opts.list;
 	this.container = opts.container;
-	this.element = $('<div><div class="title">' + this.list.title + '</div></div>');
+	this.element = $('<div class="container"></div>');
+	this.title_el = $('<div class="title">' + this.list.title + '</div>');
+	this.items_el = $('<div class="items_container"></div>');
+	this.element.append(this.title_el, this.items_el);
 	this.container.append(this.element);
 	
 	this.create_item_ui = function(item){
