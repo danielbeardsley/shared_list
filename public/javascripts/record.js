@@ -5,8 +5,10 @@ function Record(opt){
 	this.set = function(key, value){
 		if(!this.is_field(key))
 			throw(key + " is not a field");
-			
-		if(this[key] != value){
+		
+		var old = this[key];
+		if(old != value &&
+			 (old || value != "")){ //null = "" isn't changing the field
 			this[key] = value;
 			if(this.changed)
 				this.changed.fire();

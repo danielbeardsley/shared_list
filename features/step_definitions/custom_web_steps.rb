@@ -11,10 +11,14 @@ end
 
 # Interaction steps
 
+When(/^(?:|I )click "([^"]*)"$/) do |selector|
+	msg = "No element found using selector '#{selector}'"
+	find(selector, :message => msg).click
+end
+
 Given(/^(?:|I )click somewhere else$/) do
 	find('body').click
 end
-
 
 # Steps specific to certain layouts
 
