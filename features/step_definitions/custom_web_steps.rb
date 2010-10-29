@@ -4,6 +4,10 @@ Then(/^the "([^"]*)" field(?: within "([^"]*)")? should be (?:empty|blank)$/) do
 	Then %Q{the "#{field}" field #{selector ? "within \"#{selector}\" " : ""}should not contain ".+"}
 end
 
+Then(/^(?:|I )should see (\d+) elements? matching "([^"]*)"$/) do |quantity, selector|
+  assert_equal quantity.to_i, all(selector).length
+end
+
 
 # Interaction steps
 

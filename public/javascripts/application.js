@@ -12,5 +12,8 @@ var App = new (function(){
 		ListIO.watch_list(list);
 		
 		App.current_list = list;
+		
+		if(list.items.length == 0)
+			list.create_item();
 	}
 })();
