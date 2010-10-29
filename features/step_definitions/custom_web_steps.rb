@@ -20,6 +20,11 @@ Given(/^(?:|I )click somewhere else$/) do
 	find('body').click
 end
 
+When(/^(?:|I )save the list(?: and (wait))?$/) do |wait|
+	Then "I click somewhere else"
+	Then "I wait 1 second" if wait
+end
+
 # Steps specific to certain layouts
 
 Then(/^(only |)?the following items? should be shown:?$/) do |only, table|
