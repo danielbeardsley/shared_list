@@ -9,7 +9,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'haml', '>=3.0.21'
 
-group :test, :development do
+group :test do
 	gem "shoulda"
 	gem "factory_girl_rails"
 	gem "capybara"
