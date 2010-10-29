@@ -46,7 +46,7 @@ $.extend(List.prototype, {
 		else
 			index = this.items.length;
 		
-		this.items.splice(index, 1, item);
+		this.items.splice(index, 0, item);
 			
 		this.item_instantiated.fire({item:item, before_item:this.items[index+1]});
 		return item;
@@ -67,11 +67,17 @@ function ListUI(opts){
 	this.container.append(this.element);
 	
 	this.create_item_ui = function(info){
-		var attr = {
-			item:info.item,
-			container:this.items_el
+		var index, attr = {
+			item:info.item
 		};
-		var index = info.before_item ? this.index_of_ui_for_item(info.before_item) : item_uis.length;
+		
+		if(info.before_item){
+			index = this.index_of_ui_for_item(info.before_item);
+			attr.before = item_uis[index];
+		} else {
+			index = item_uis.length;
+			attr.container = this.items_el;
+		}
 		item_uis.splice(index, 1, new ItemUI(attr));
 	};
 	

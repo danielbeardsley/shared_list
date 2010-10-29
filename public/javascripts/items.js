@@ -34,8 +34,8 @@ function ItemUI(opts){
 	
 	this.element = this.create_ui();
 	
-	if(opts.after)
-		opts.after.after(this.element);
+	if(opts.before)
+		opts.before.element.before(this.element);
 	else if(opts.container)
 		opts.container.append(this.element);
 
@@ -74,7 +74,7 @@ $.extend(ItemUI.prototype, {
 		});
 		
 		el.focusout(function(e){
-			me.item.set('title', el.val());
+			me.item.set('title', $.trim(el.val()));
 		});
 	}
 });
