@@ -3,7 +3,8 @@
 <head>
   <title>TaskList</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'external/jquery-1.4.2' %>
+  <%= javascript_include_tag 'external/jquery-1.4.2',
+                             'external/jquery_caret.js'%>
   <%= javascript_include_tag %w(application record utilities items lists io loader) %>
   <%= csrf_meta_tag %>
 </head>
