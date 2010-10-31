@@ -6,7 +6,9 @@
 #
 
 # And I send "hello" to "#element"
-# And /^I send (#{allowed_keys.join('|')}) to "([^\"]*)"$/ do |key, element|
-And /^I send (.*) to "(.*)"$/ do |key, element|
-  find(element).send(key)
+# ... "hello", :delete to "#element"
+# ... [:shift, 'a'] to "#element"
+# ... "hello world", [:control, :left], "dumb " to "#element"
+And(/^I send (.*) to "(.*)"$/) do |keys, element|
+  find(element).node.send_keys(*eval("[#{keys}]"))
 end
