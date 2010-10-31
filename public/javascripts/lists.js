@@ -50,7 +50,11 @@ $.extend(List.prototype, {
 			
 		this.item_instantiated.fire({item:item, before_item:this.items[index+1]});
 		return item;
-	}	
+	},
+	
+	item_after: function(item){
+		return this.items[$.inArray(item, this.items)+1];
+	}
 });
 
 
