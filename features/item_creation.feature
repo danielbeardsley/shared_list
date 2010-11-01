@@ -28,7 +28,4 @@ Feature: Creating an item on a list
 			And I go to the list's page
 			And I send :end, :enter to ".items_container input"
 		Then the following items should be shown
-			| item  |
-			| Item1 |
-			|       |
-			| Item2 |
+			| Item1 |      | Item2 |

@@ -24,5 +24,4 @@ Feature: Deleting an item from a list
 		And the list should have the following items
 			| Item1Item2 |
 			And the following items should be shown
-			| item  |
-			| Item1Item2 |
+				| Item1Item2 |

@@ -13,9 +13,7 @@ Feature: Visiting a list's page
 			And I go to the list's page
 		Then I should see "TITLE!" within "div.title"
 			And the following items should be shown
-			| item  |
-			| Item1 |
-			| Item2 |
+			| Item1 | Item2 |
 
 	@javascript
 	Scenario: Visiting an empty list's page

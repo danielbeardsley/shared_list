@@ -30,7 +30,7 @@ end
 Then(/^(only |)?the following items? should be shown:?$/) do |only, table|
 	with_scope('.items_container') do
 		field_values = all('input').map(&:value)
-		expected_items = table.hashes.map{|attr| attr['item']}
+		expected_items = table.raw[0]
 		assert_equal(expected_items, field_values)
 	end
 end
