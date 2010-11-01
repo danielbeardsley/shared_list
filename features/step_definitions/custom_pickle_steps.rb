@@ -9,7 +9,7 @@ Then(/^the #{capture_model} should have the following items?$/) do |model, table
 	
 	items = record.items.map(&:title)
 	expected = table.raw.first
-	assert_same_elements expected, items
+	assert_equal expected, items
 end
 
 require 'shoulda/assertions'

@@ -54,7 +54,11 @@ $.extend(List.prototype, {
 	
 	item_after: function(item){
 		return this.items[$.inArray(item, this.items)+1];
-	}
+	},
+	
+	item_before: function(item){
+		return this.items[$.inArray(item, this.items)-1];
+	}	
 });
 
 
@@ -72,7 +76,8 @@ function ListUI(opts){
 	
 	this.create_item_ui = function(info){
 		var index, attr = {
-			item:info.item
+			item:info.item,
+			list_ui:this
 		};
 		
 		if(info.before_item){
@@ -101,6 +106,14 @@ function ListUI(opts){
 			if(item_uis[i].item == item) return i
 		}
 		return null;
+	}
+	
+	this.item_ui_after = function(item){
+		return item_uis[$.inArray(item, item_uis)+1];
+	}
+	
+	this.item_ui_before = function(item){
+		return item_uis[$.inArray(item, item_uis)-1];
 	}
 
 	this.list.item_instantiated.observe(this.create_item_ui, this);

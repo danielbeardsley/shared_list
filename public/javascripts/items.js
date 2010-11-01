@@ -29,11 +29,16 @@ $.extend(Item.prototype, {
 	
 	next_item: function(){
 		return this.list.item_after(this);
+	},
+	
+	prev_item: function(){
+		return this.list.item_before(this);
 	}
 })
 
 function ItemUI(opts){
 	this.item = opts.item;
+	this.list_ui = opts.list_ui;
 	this.item.deleted.observe(this.destroy, this);
 	this.item.changed.observe(this.on_item_changed, this);
 	
@@ -70,7 +75,7 @@ $.extend(ItemUI.prototype, {
 					e.preventDefault();
 					break;
 				case 8:
-					//me.do_backspace_action();
+					if(me.do_backspace_action()) e.preventDefault();
 					break;
 				case 46:
 					if(me.do_delete_action()) e.preventDefault();
@@ -100,6 +105,30 @@ $.extend(ItemUI.prototype, {
 				this.element.caret(text.length, text.length);
 				next.destroy();
 				return true;
+			}
+		}
+	},
+
+	do_backspace_action: function(){
+		var text = this.element.val();
+
+		if(text.length == 0){
+			this.item.destroy();
+			return true;
+		}
+		
+		var range = this.element.caret();
+		if((range.end - range.start) == 0 && range.start == 0){
+			var prev_ui = this.list_ui.item_ui_before(this);
+			var prev = prev_ui.item;
+			if(prev){
+				var prev_title = prev.title;
+				prev.set("title", prev_title + text);
+				prev_ui.element.caret(prev_title.length, prev_title.length);
+				this.item.destroy();
+				return true;
+			}else{
+				
 			}
 		}
 	},

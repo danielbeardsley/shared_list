@@ -19,7 +19,7 @@ Feature: Creating an item on a list
 			And I save the list and wait
 		Then the list should have 0 items
 
-	@current
+
 	Scenario: Adding an item in the middle of a list with the enter key
 		When the following items exist
 			| title | list     |
