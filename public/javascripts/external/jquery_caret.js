@@ -10,8 +10,8 @@
 
 			if (elem) {							
 				// get caret range
-				if (typeof start == "undefined") {
-					if (elem.selectionStart) {
+				if (start == $.undefined) {
+					if (elem.selectionStart != $.undefined) {
 						start = elem.selectionStart;
 						end = elem.selectionEnd;
 					}
@@ -39,11 +39,11 @@
 
 					elem.focus();
 
-					if (elem.selectionStart) {
+					if (elem.selectionStart != $.undefined) {
 						elem.selectionStart = start;
 						elem.selectionEnd = end;
 					}
-					else if (document.selection) {
+					else if (document.selection != $.undefined) {
 						var range = elem.createTextRange();
 						range.collapse(true);
 						range.moveStart("character", start);
