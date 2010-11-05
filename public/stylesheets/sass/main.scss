@@ -5,5 +5,20 @@ input.title{
 
 input.item{
 	display: block;
-	width: 200px;
+	width: 400px;
+	border: none;
+	padding: 2px 0px;
+	font-size: 1.5em;
+	color:#777;
+}
+
+input.item:hover{
+	border-top: solid 1px #ddd;
+	border-bottom: solid 1px #ddd;
+	padding: 1px 0px;
+	color:#444;
+}
+
+input.item:focus{
+	color:#000;
 }
