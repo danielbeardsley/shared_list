@@ -79,6 +79,12 @@ $.extend(ItemUI.prototype, {
 				case 46:
 					if(me.do_delete_action()) e.preventDefault();
 					break;
+				case 40:
+					if(me.do_down_arrow_action()) e.preventDefault();
+					break;
+				case 38:
+					if(me.do_up_arrow_action()) e.preventDefault();
+					break;				
 			}
 		});
 		
@@ -86,6 +92,16 @@ $.extend(ItemUI.prototype, {
 			me.item.set('title', $.trim(el.val()));
 		});
 	},
+	
+	do_down_arrow_action:function(){
+		var next_item = this.list_ui.item_ui_after(this);
+		if(next_item) next_item.element.focus();
+	},
+	
+	do_up_arrow_action:function(){
+		var prev_item = this.list_ui.item_ui_before(this);
+		if(prev_item) prev_item.element.focus();
+	},	
 	
 	do_enter_action: function(){
 		var text = this.element.val();

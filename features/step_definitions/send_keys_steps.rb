@@ -10,5 +10,17 @@
 # ... [:shift, 'a'] to "#element"
 # ... "hello world", [:control, :left], "dumb " to "#element"
 And(/^I send (.*) to "(.*)"$/) do |keys, element|
-  find(element).node.send_keys(*eval("[#{keys}]"))
+  find(element).native.send_keys(*eval("[#{keys}]"))
+end
+
+And(/^I type (.*)$/) do |keys|
+  element = page.driver.active_element
+  element.native.send_keys(*eval("[#{keys}]")) if element
+end
+
+Then(/^the active element should be "(.*)"$/) do |selector|
+  element = page.driver.active_element
+  expected = find(selector)
+  assert_not_nil expected
+  assert_equal expected.native, element.native
 end
