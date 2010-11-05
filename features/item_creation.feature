@@ -13,7 +13,7 @@ Feature: Creating an item on a list
 			And that item should be in the list's items
 
 
-	Scenario: Visiting an empty list's page and clicking in/out of the input box
+	Scenario: Visiting an empty list's page and clicking in/out of the input box should not save a blank item
 		When I go to the list's page
 			And I send " " to ".items_container input"
 			And I save the list and wait
@@ -29,3 +29,14 @@ Feature: Creating an item on a list
 			And I send :end, :enter to ".items_container input"
 		Then the following items should be shown
 			| Item1 |      | Item2 |
+
+
+	Scenario: Splitting an item in the with the enter key
+		When the following items exist
+			| title  | list     |
+			| AABB | the list |
+			And I go to the list's page
+			And I send :home, :right, :right, :enter to ".items_container input"
+		Then the following items should be shown
+			| AA | BB |
+			And the active element should be ".items_container input:last"

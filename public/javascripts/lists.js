@@ -21,8 +21,8 @@ $.extend(List.prototype, {
 		return json;
 	},
 	
-	create_item: function(opt){
-		var new_item = this.instantiate_item({}, opt);
+	create_item: function(attr, opt){
+		var new_item = this.instantiate_item(attr || {}, opt);
 		this.item_created.fire(new_item);
 	},
 	

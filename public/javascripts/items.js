@@ -71,8 +71,7 @@ $.extend(ItemUI.prototype, {
 		el.keydown(function(e){
 			switch(e.which){
 				case 13:
-					me.item.list.create_item({after:me.item});
-					e.preventDefault();
+					if(me.do_enter_action()) e.preventDefault();
 					break;
 				case 8:
 					if(me.do_backspace_action()) e.preventDefault();
@@ -86,6 +85,25 @@ $.extend(ItemUI.prototype, {
 		el.focusout(function(e){
 			me.item.set('title', $.trim(el.val()));
 		});
+	},
+	
+	do_enter_action: function(){
+		var text = this.element.val();
+
+		if(text.length == 0){
+			this.item.list.create_item(null,{before:this.item});	
+			return true;
+		}
+		
+		var range = this.element.caret();
+		if((range.end - range.start) == 0){
+			var new_title = text.substring(range.end, text.length);
+			var old_title = text.substring(0, range.end);
+			this.item.set("title", old_title);
+			this.item.list.create_item({title: new_title}, {after:this.item});
+			this.list_ui.item_ui_after(this).element.caret(0, 0);
+			return true;
+		}		
 	},
 	
 	do_delete_action: function(){
