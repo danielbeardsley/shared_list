@@ -87,7 +87,7 @@ function ListUI(opts){
 			index = item_uis.length;
 			attr.container = this.items_el;
 		}
-		item_uis.splice(index, 1, new ItemUI(attr));
+		item_uis.splice(index, 0, new ItemUI(attr));
 	};
 	
 	this.remove_item_ui = function(item){

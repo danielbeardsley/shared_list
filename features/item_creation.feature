@@ -12,6 +12,20 @@ Feature: Creating an item on a list
 		Then an item should exist with title: "Item Text"
 			And that item should be in the list's items
 
+  @current
+	Scenario: multiple items are added to an empty list
+		When I go to the list's page
+			And I send "1", :enter to ".items_container input"
+			And I type "2", :enter
+			And I type "3"
+		Then the active element should be ".items_container input:last"
+			And the following items should be shown
+				| 1 | 2 | 3 |
+		
+		When I save the list and wait
+		Then the list should have the following items
+			| 1 | 2 | 3 |
+
 
 	Scenario: Visiting an empty list's page and clicking in/out of the input box should not save a blank item
 		When I go to the list's page
