@@ -32,8 +32,17 @@ var ListIO = {
 	},
 	
 	save_item: function(item){
+		if(this.dont_save) return;
+		var me = this;
 		var request_opts = this.ajax_request_options(item);
-
+		request_opts.success = function(data){
+			if(data.data){
+				item.load_attributes(data.data);
+				me.dont_save = true;				
+				item.changed.fire();
+				me.dont_save = false;
+			}
+		}
 		$.ajax(request_opts);		
 	},
 	
